@@ -1,0 +1,31 @@
+---
+title: "R Notebook"
+output: pdf_document
+---
+
+```{r preparate, include=FALSE}
+library(latex2exp)
+
+non_innov_simulate_ar = function (coefs, n = 100){
+  arima.sim(list(ar=coefs), n, innov =  rep(0, n))
+}
+```
+
+Always $$\rho_0 = 1$$
+
+## For AR(1) models:
+
+$\rho_l = \phi_1^l = \phi_1 \rho_{l-1}$
+
+```{r echo=FALSE}
+acf(non_innov_simulate_ar(c(0.8)), main=TeX("$\\phi_1 = 0.8$"))
+```
+
+```{r echo=FALSE}
+acf(non_innov_simulate_ar(c(-0.8)), main=TeX("$\\phi_1 = 0.8$"))
+```
+
+## for AR(2) models:
+
+$$\rho_l = \phi_1 \rho_{l-1} + \phi_2\rho_{l-2}$$
+
